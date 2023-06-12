@@ -1,0 +1,11 @@
+transformers==4.30.0.dev0
+accelerate==0.20.0.dev0
+bitsandbytes==0.39.0
+peft==0.4.0.dev0
+tensorboardX==2.6
+datasets==2.9.0
+fastapi==0.94.1
+uvicorn==0.21.0
+torch==1.13.1
+rouge==1.0.1
+nltk==3.2.3

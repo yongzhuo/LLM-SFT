@@ -1,0 +1,16 @@
+transformers>=4.26.1
+bitsandbytes>=0.37.2
+accelerate>=0.16.0
+tensorboardX>=2.4
+torch>=1.10.1
+peft>=0.2.0
+datasets==2.9.0
+fastapi==0.94.1
+uvicorn==0.21.0
+fastapi>=0.94.1
+uvicorn>=0.21.0
+gradio>=3.31.0
+numpy>=1.21.6
+tqdm>=4.64.1
+rouge>=1.0.1
+nltk>=3.2.3
