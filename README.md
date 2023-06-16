@@ -1,5 +1,5 @@
 # LLM-SFT
-中文大模型微调(LLM-SFT), 支持模型(ChatGLM, LlaMA, Bloom), 支持(LoRA, QLoRA, DeepSpeed, UI, TensorboardX), 支持(微调, 推理, 测评, 接口)等.
+中文大模型微调(LLM-SFT), 支持模型(ChatGLM, LlaMA, Bloom, Baichuan-7B), 支持(LoRA, QLoRA, DeepSpeed, UI, TensorboardX), 支持(微调, 推理, 测评, 接口)等.
 
 ## 踩坑
 ```python
@@ -18,7 +18,7 @@ ChatGLM-6B-MWP: https://huggingface.co/Macropodus/MWP-Instruct
 ## 微调数据
 1. 原始数据来自[https://github.com/LYH-YF/MWPToolkit](https://github.com/LYH-YF/MWPToolkit)
 
-处理后的微调数据(算式/解方程)-MWP: [https://huggingface.co/datasets/Macropodus/MWP-Instruct](https://huggingface.co/datasets/Macropodus/MWP-Instruct)
+处理后的微调数据(多步计算+一/二元解方程)-MWP: [https://huggingface.co/datasets/Macropodus/MWP-Instruct](https://huggingface.co/datasets/Macropodus/MWP-Instruct)
 
 
 2. 大数加减乘除来自: [https://github.com/liutiedong/goat.git ](https://github.com/liutiedong/goat.git )
@@ -86,6 +86,7 @@ torch>=1.13.1
  - [https://huggingface.co/spaces/multimodalart/ChatGLM-6B/tree/main](https://huggingface.co/spaces/multimodalart/ChatGLM-6B/tree/main)
  - [https://huggingface.co/spaces/stabilityai/stablelm-tuned-alpha-chat/tree/main](https://huggingface.co/spaces/stabilityai/stablelm-tuned-alpha-chat/tree/main)
  - [https://github.com/artidoro/qlora](https://github.com/artidoro/qlora)
+ - [https://github.com/baichuan-inc/baichuan-7B](https://github.com/baichuan-inc/baichuan-7B)
 
 # Reference
 For citing this work, you can refer to the present GitHub project. For example, with BibTeX:
