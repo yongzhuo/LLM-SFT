@@ -121,8 +121,8 @@ class BertSFT:
             \n###指令：\n{data_point["instruction"]}
             \n###回答：\n""", f"""{data_point["output"]}"""
 
-        x = self.tokenizer.encode(text_1.replace(" ", ""))[:-1]
-        y = self.tokenizer.encode(text_2.replace(" ", ""))[1:-1]
+        x = self.tokenizer.encode(text_1)[:-1]
+        y = self.tokenizer.encode(text_2)[1:-1]
         if len(x) + len(y) > (MAX_LENGTH_Q + MAX_LENGTH_A):
             x = x[:MAX_LENGTH_Q]
             y = y[:MAX_LENGTH_A]

@@ -198,8 +198,8 @@ def generate_prompt(data_point, is_logger=False):
     # text_1, text_2 = f"""Q：{data_point["instruction"]}{data_point["input"]}\nA：""", \
     #                  f"""{data_point["output"]}"""
 
-    x = tokenizer.encode(text_1.replace(" ", ""))
-    y = tokenizer.encode(text_2.replace(" ", ""))
+    x = tokenizer.encode(text_1)
+    y = tokenizer.encode(text_2)
     if len(x) + len(y) > (MAX_LENGTH_Q + MAX_LENGTH_A):
         x = x[:MAX_LENGTH_Q]
         y = y[:MAX_LENGTH_A]

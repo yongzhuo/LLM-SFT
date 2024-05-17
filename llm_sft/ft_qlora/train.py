@@ -179,8 +179,8 @@ def generate_prompt(data_point, is_logger=False):
     # text_1, text_2 = f"""Q：{data_point["instruction"]}{data_point["input"]}\nA：""", \
     #                  f"""{data_point["output"]}"""
 
-    x = tokenizer.encode(text_1.replace(" ", ""))
-    y = tokenizer.encode(text_2.replace(" ", ""))
+    x = tokenizer.encode(text_1)
+    y = tokenizer.encode(text_2)
     if len(x) + len(y) > (MAX_LENGTH_Q + MAX_LENGTH_A):
         x = x[:MAX_LENGTH_Q]
         y = y[:MAX_LENGTH_A]
@@ -225,7 +225,8 @@ def data_collator(batch):
         len_padding = len_max_batch - len(x) - len(y)
         labels = [-100] * len(x) + y + [-100] * len_padding
         input_ids = x + y + [ID_PAD] * (len_padding)
-        attention_mask = [0] * len(x) + [1] * (len_max_batch-len(x))
+        attention_mask = [1] * (len(x)+len(y)) + [0] * len_padding
+        # attention_mask = [0] * len(x) + [1] * (len_max_batch-len(x))
         tensor_attention_mask = torch.tensor(attention_mask, dtype=torch.long)
         tensor_input_ids = torch.tensor(input_ids, dtype=torch.long)
         tensor_labels = torch.tensor(labels, dtype=torch.long)

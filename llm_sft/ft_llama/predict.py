@@ -141,14 +141,14 @@ def generate_prompt(data_point):
         \n###指令：\n{data_point["instruction"]}
         \n###回答：\n""", f"""{data_point["output"]}"""
 
-    x = tokenizer.encode(text_1.replace(" ", ""))
-    y = tokenizer.encode(text_2.replace(" ", ""))
+    x = tokenizer.encode(text_1)
+    y = tokenizer.encode(text_2)
     if len(x) + len(y) > (MAX_LENGTH_Q + MAX_LENGTH_A):
         x = x[:MAX_LENGTH_Q]
         y = y[:MAX_LENGTH_A]
     if not x:
         y = [ID_PAD, ID_BOS]
-    if x[-1] != ID_BOS:
+    if x and x[-1] != ID_BOS:
         x += [ID_BOS]
     if not y:
         y = [ID_PAD, ID_EOS]
@@ -160,7 +160,7 @@ def generate_prompt(data_point):
 
 model = LlamaForCausalLM.from_pretrained(PATH_MODEL_PRETRAIN)
 tokenizer = LlamaTokenizer.from_pretrained(PATH_MODEL_PRETRAIN, add_eos_token=True)
-print("load ChatGLMForConditionalGeneration ok")
+print("load LLM ok")
 model = load_model_state(model=model, model_save_dir=MODEL_SAVE_DIR)
 print("load peft ok")
 # model = prepare_model_for_half_training(model,

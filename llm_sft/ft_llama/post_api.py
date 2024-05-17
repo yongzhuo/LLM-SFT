@@ -87,7 +87,7 @@ def save_model_state(model, config=None, model_save_dir="./", model_name="adapte
                         if v.requires_grad == True}
     torch.save(grad_params_dict, path_model)
     print("******model_save_path is {}******".format(path_model))
-def load_model_state(model, model_save_dir="./", model_name="adapter_model.bin", device="cpu"):
+def load_model_state(model, model_save_dir="./", model_name="pytorch_model.bin", device="cpu"):
     """  仅加载模型参数(推荐使用)  """
     try:
         path_model = os.path.join(model_save_dir, model_name)
@@ -170,18 +170,20 @@ def load_json(path: str, encoding: str="utf-8"):
     return model_json
 def generate_prompt(data_point):
     """  构建prompt   """
-    if data_point["input"]:
-        text_1, text_2 = f"""下面是一条指令。请根据问题，并编写一个准确的回答，以适当地完成指令。
-        \n###指令：\n{data_point["instruction"]}
-        \n###问题：\n{data_point["input"]}
-        \n###回答：\n""", f"""{data_point["output"]}"""
-    else:
-        text_1, text_2 = f"""下面是一条指令。请编写一个准确的回答，以适当地完成指令。
-        \n###指令：\n{data_point["instruction"]}
-        \n###回答：\n""", f"""{data_point["output"]}"""
+    # if data_point["input"]:
+    #     text_1, text_2 = f"""下面是一条指令。请根据问题，并编写一个准确的回答，以适当地完成指令。
+    #     \n###指令：\n{data_point["instruction"]}
+    #     \n###问题：\n{data_point["input"]}
+    #     \n###回答：\n""", f"""{data_point["output"]}"""
+    # else:
+    #     text_1, text_2 = f"""下面是一条指令。请编写一个准确的回答，以适当地完成指令。
+    #     \n###指令：\n{data_point["instruction"]}
+    #     \n###回答：\n""", f"""{data_point["output"]}"""
 
-    x = tokenizer.encode(text_1.replace(" ", ""))
-    y = tokenizer.encode(text_2.replace(" ", ""))
+    text_1, text_2 = f"""问:{data_point["instruction"]}\t{data_point.get("input", "")}\n\n答:""" \
+        , f"""{data_point["output"]}"""
+    x = tokenizer.encode(text_1)
+    y = tokenizer.encode(text_2)
     if len(x) + len(y) > (MAX_LENGTH_Q + MAX_LENGTH_A):
         x = x[:MAX_LENGTH_Q]
         y = y[:MAX_LENGTH_A]
@@ -224,7 +226,8 @@ def data_collator(batch):
                   }
     return input_dict
 
-
+MODEL_SAVE_DIR = "/home/moyzh/QSeg4.1/qanalysis/llm_sft/ft_llama/model_sft/checkpoint-4202/"
+USE_CUDA=False
 model = LlamaForCausalLM.from_pretrained(PATH_MODEL_PRETRAIN)
 print_named_parameters(model, True)
 tokenizer = LlamaTokenizer.from_pretrained(PATH_MODEL_PRETRAIN, add_eos_token=True)

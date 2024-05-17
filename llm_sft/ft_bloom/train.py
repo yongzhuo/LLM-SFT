@@ -128,8 +128,8 @@ def generate_prompt(data_point, is_logger=False):
         \n###指令：\n{data_point["instruction"]}
         \n###回答：\n""", f"""{data_point["output"]}"""
 
-    x = tokenizer.encode(text_1.replace(" ", ""))
-    y = tokenizer.encode(text_2.replace(" ", ""))
+    x = tokenizer.encode(text_1)
+    y = tokenizer.encode(text_2)
     if len(x) + len(y) > (MAX_LENGTH_Q + MAX_LENGTH_A):
         x = x[:MAX_LENGTH_Q]
         y = y[:MAX_LENGTH_A]
@@ -160,7 +160,8 @@ def data_collator(batch):
         len_padding = len_max_batch - len(x) - len(y)
         labels = [-100] * len(x) + y + [-100] * len_padding
         input_ids = x + y + [ID_PAD] * len_padding
-        attention_mask = [0] * len(x) + [1] * (len_max_batch-len(x))
+        attention_mask = [1] * (len(x)+len(y)) + [0] * len_padding
+        # attention_mask = [0] * len(x) + [1] * (len_max_batch-len(x))
         # labels = [-100] * len_padding + [-100] * len(x) + y
         # input_ids = [ID_PAD] * len_padding + x + y
         # attention_mask = [1] * (len_max_batch - len(x)) + [0] * len(x)

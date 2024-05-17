@@ -32,7 +32,7 @@ from transformers.activations import ACT2FN
 from transformers.modeling_outputs import BaseModelOutputWithPast, CausalLMOutputWithPast, SequenceClassifierOutputWithPast
 from transformers.modeling_utils import PreTrainedModel
 from transformers.utils import add_start_docstrings, add_start_docstrings_to_model_forward, logging, replace_return_docstrings
-from llm_ift.models.llama.configuration_llama import LlamaConfig
+from llm_sft.models.llama.configuration_llama import LlamaConfig
 
 
 logger = logging.get_logger(__name__)
